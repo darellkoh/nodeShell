@@ -42,8 +42,21 @@ process.stdin.on('data', function (data) {
   }
 
   if(command === 'curl'){
-    commands['curl'](args);
+  commands['curl'](args);
   }
+
+  if(command === 'sort'){
+    commands['sort'](args);
+  }
+
+  if(command === 'wc'){
+    commands['wc'](args);
+  }
+
+  if(command === 'uniq'){
+    commands['uniq'](args);
+  }
+
 
 });
 

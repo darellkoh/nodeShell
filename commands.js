@@ -120,6 +120,92 @@ function curl(str){
   });
 }
 
+function sort(file){
+  var done = new Array(file.length);
+  var fileArr = new Array(file.length);
+
+  for(var i = 0; i < file.length; i++){
+  (function(x){
+    fs.readFile(file[i], "utf-8", (err, data) => {
+      //console.log(i);
+      if (err) throw err;
+        fileArr[x] = data;
+        done[x] = true;
+        if(done.filter(function(el){
+          return el === true;
+        }).length === file.length){
+            fileArr.forEach(function(el){
+              el.split('\n').sort().forEach(function(el, index){
+                  process.stdout.write(el + '\n');
+              });
+            });
+            process.stdout.write('\nprompt > ');
+        }
+     });
+  })(i);
+  }
+}
+
+function wc(file){
+  var done = new Array(file.length);
+  var fileArr = new Array(file.length);
+
+  for(var i = 0; i < file.length; i++){
+  (function(x){
+    fs.readFile(file[i], "utf-8", (err, data) => {
+      //console.log(i);
+      if (err) throw err;
+        fileArr[x] = data;
+        done[x] = true;
+        if(done.filter(function(el){
+          return el === true;
+        }).length === file.length){
+            fileArr.forEach(function(el){
+              process.stdout.write(el.split('\n').length.toString());
+            });
+            process.stdout.write('\nprompt > ');
+        }
+     });
+  })(i);
+  }
+}
+
+function uniq(file){
+  var done = new Array(file.length);
+  var fileArr = new Array(file.length);
+
+  for(var i = 0; i < file.length; i++){
+  (function(x){
+    fs.readFile(file[i], "utf-8", (err, data) => {
+      if (err) throw err;
+        fileArr[x] = data;
+        done[x] = true;
+        if(done.filter(function(el){
+          return el === true;
+        }).length === file.length){
+            fileArr.forEach(function(el){
+              el.split('\n').sort().reduce(function(prev, current){
+                if(!prev[0] && !current) return prev; 
+                if(!prev[0] && current){
+                  prev.push(current); 
+                  return prev; 
+                }
+                if(prev[prev.length - 1] !== current){
+                  prev.push(current);
+                  return prev; 
+                }
+                return prev; 
+              }, []).forEach(function(el, index){
+                  process.stdout.write(el + '\n');
+              });
+            });
+            process.stdout.write('\nprompt > ');
+        }
+     });
+  })(i);
+  }
+}
+
 module.exports = {
   pwd: pwd,
   ls: ls,
@@ -129,6 +215,9 @@ module.exports = {
   head: head,
   tail: tail,
   curl: curl, 
+  sort: sort, 
+  wc: wc, 
+  uniq: uniq, 
 }
 
 
