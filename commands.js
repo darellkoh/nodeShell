@@ -1,4 +1,5 @@
 var fs = require('fs');
+var request = require('request'); 
 
 function pwd(){
   process.stdin.on('data', function (data) {
@@ -56,11 +57,67 @@ function cat(file){
 }
 
 function head(file){
+  var done = new Array(file.length);
+  var fileArr = new Array(file.length);
 
+  for(var i = 0; i < file.length; i++){
+  (function(x){
+    fs.readFile(file[i], "utf-8", (err, data) => {
+      //console.log(i);
+      if (err) throw err;
+        fileArr[x] = data;
+        done[x] = true;
+        if(done.filter(function(el){
+          return el === true;
+        }).length === file.length){
+            fileArr.forEach(function(el){
+              el.split('\n').forEach(function(el, index){
+                if(index < 5){
+                  process.stdout.write(el + '\n');
+                }
+              });
+            });
+            process.stdout.write('\nprompt > ');
+        }
+     });
+  })(i);
+  }
 }
 
 function tail(file){
+  var done = new Array(file.length);
+  var fileArr = new Array(file.length);
 
+  for(var i = 0; i < file.length; i++){
+  (function(x){
+    fs.readFile(file[i], "utf-8", (err, data) => {
+      //console.log(i);
+      if (err) throw err;
+        fileArr[x] = data;
+        done[x] = true;
+        if(done.filter(function(el){
+          return el === true;
+        }).length === file.length){
+            fileArr.forEach(function(el){
+              el.split('\n').slice(-6).forEach(function(el, index){
+                  process.stdout.write(el + '\n');
+              });
+            });
+            process.stdout.write('\nprompt > ');
+        }
+     });
+  })(i);
+  }
+
+}
+
+function curl(str){
+  request(str[0], function (error, response, body) {
+    if (!error && response.statusCode == 200) {
+      process.stdout.write(body); // Show the HTML for the Google homepage.
+      process.stdout.write('\nprompt > ');
+    }
+  });
 }
 
 module.exports = {
@@ -71,6 +128,7 @@ module.exports = {
   cat: cat,
   head: head,
   tail: tail,
+  curl: curl, 
 }
 
 

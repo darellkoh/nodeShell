@@ -1,0 +1,22 @@
+{
+  "name": "nodeshell",
+  "version": "1.0.0",
+  "description": "Readme1.txt Hello Darell Hello Lexy Hello Milad Lexy Diamond is the best recruiter in town Lexy Sexy Lexy Lexy Lexy Hello Darell Hello Darell Hello Darell Hello Darell Hello Darell Readme1.txt",
+  "main": "bash.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MiladNazeri/nodeShell.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MiladNazeri/nodeShell/issues"
+  },
+  "homepage": "https://github.com/MiladNazeri/nodeShell#readme",
+  "dependencies": {
+    "request": "^2.74.0"
+  }
+}

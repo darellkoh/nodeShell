@@ -41,5 +41,9 @@ process.stdin.on('data', function (data) {
     commands['tail'](args);
   }
 
+  if(command === 'curl'){
+    commands['curl'](args);
+  }
+
 });
 
